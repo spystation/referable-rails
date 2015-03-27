@@ -20,6 +20,9 @@ class UsersController < ApplicationController
 
       @user.save
 
+      # Sends email to user when user is created
+      UserMailer.signup_email(@user).deliver_now
+
     end
 	#@user = User.create(user_params)
     #if @user.save

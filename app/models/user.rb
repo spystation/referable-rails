@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
 
   before_create :create_referral_code
 
+   # After user registers, Send email to registered user  
+  after_create :send_welcome_email
+
   private
 
     def create_referral_code
@@ -21,6 +24,11 @@ class User < ActiveRecord::Base
       end
 
       self.referral_code = referral_code
+    end
+
+     ## Send email to registered user 
+    def send_welcome_email
+        UserMailer.signup_email(self) #removed .delay
     end
 
 end
